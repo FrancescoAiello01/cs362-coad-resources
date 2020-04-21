@@ -36,5 +36,8 @@
 # Ignore simplecov output
 /coverage/*
 
+# Ignore Jetbrains IDE configuration files
+.idea
+
 .ruby-gemset
 .ruby-version
