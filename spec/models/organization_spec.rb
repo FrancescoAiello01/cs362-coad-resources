@@ -60,12 +60,17 @@ RSpec.describe Organization, type: :model do
 
   describe "validations" do
 
-    it "validates email" do
+    it "validates presence of email" do
       expect(organization).to validate_presence_of(:email)
     end
 
     it "validates length of email" do
       expect(organization).to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create)
+    end
+
+    it "validates format of email" do
+      expect(organization).to allow_value('valid@example.com').for(:email)
+      expect(organization).to_not allow_values('@example.com', 'example.com', 'INVALID', 'fake@example').for(:email)
     end
 
   end
