@@ -38,6 +38,8 @@ RSpec.describe Organization, type: :model do
       expect(organization).to respond_to(:agreement_eight)
     end
 
+    #TODO: Add missing attributes from schema file
+
   end
 
   describe "relationships" do
@@ -65,7 +67,6 @@ RSpec.describe Organization, type: :model do
     it "validates length of email" do
       expect(organization).to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create)
     end
-
 
   end
 
