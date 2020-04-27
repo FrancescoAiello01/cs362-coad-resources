@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-
     let(:user) { User.new() }
 
     describe "attributes" do
@@ -26,7 +25,33 @@ RSpec.describe User, type: :model do
     describe "relationships" do
 
         it "belongs to organization" do
-          expect(user).to belong_to(:organization)
+            expect(user).to belong_to(:organization)
+        end
+
+    end
+
+    describe "validations" do
+
+        specify { expect(user).to validate_presence_of(:email) }
+        specify { expect(user).to validate_length_of(:email).is_at_least(1).is_at_most(255) }
+        specify { expect(user).to validate_length_of(:password).is_at_least(7).is_at_most(255).on(:create) }
+
+        it "test valid emails" do
+            should allow_values('test@test.com', 'other.test@yahoo.com').
+            for(:email)
+        end
+
+        it "test invalid emails" do
+            should_not allow_values('foo', 'buz').
+            for(:email)
+        end
+
+        it "test uniqueness of email" do
+            should validate_uniqueness_of(:email).case_insensitive
+        end
+
+        it "test uniqueness of email" do
+            should validate_presence_of(:password).on(:create)
         end
 
     end
