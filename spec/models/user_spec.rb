@@ -56,4 +56,23 @@ RSpec.describe User, type: :model do
 
     end
 
+    describe "#set_default_role" do
+
+        it "set default role to organization" do
+            user.role = nil
+            user.set_default_role
+            expect(user.role).to eq("organization")
+        end
+
+    end
+
+    describe "#to_s" do
+
+        it "has string representation of email" do
+            user.email = "test@test.com"
+            expect(user.to_s).to eq("test@test.com")
+        end
+
+    end
+
 end
