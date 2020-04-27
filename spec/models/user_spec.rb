@@ -23,4 +23,12 @@ RSpec.describe User, type: :model do
 
     end
 
+    describe "relationships" do
+
+        it "belongs to organization" do
+          expect(user).to belong_to(:organization)
+        end
+
+    end
+
 end
