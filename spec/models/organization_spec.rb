@@ -7,43 +7,24 @@ RSpec.describe Organization, type: :model do
   describe "attributes" do
 
     specify { expect(organization).to respond_to(:agreement_one) }
-
     specify { expect(organization).to respond_to(:agreement_two) }
-
     specify { expect(organization).to respond_to(:agreement_three) }
-
     specify { expect(organization).to respond_to(:agreement_four) }
-
     specify { expect(organization).to respond_to(:agreement_five) }
-
     specify { expect(organization).to respond_to(:agreement_six) }
-
     specify { expect(organization).to respond_to(:agreement_seven) }
-
     specify { expect(organization).to respond_to(:agreement_eight) }
-
     specify { expect(organization).to respond_to(:name) }
-
     specify { expect(organization).to respond_to(:status) }
-
     specify { expect(organization).to respond_to(:phone) }
-
     specify { expect(organization).to respond_to(:email) }
-
     specify { expect(organization).to respond_to(:description) }
-
     specify { expect(organization).to respond_to(:rejection_reason) }
-
     specify { expect(organization).to respond_to(:liability_insurance) }
-
     specify { expect(organization).to respond_to(:primary_name) }
-
     specify { expect(organization).to respond_to(:secondary_name) }
-
     specify { expect(organization).to respond_to(:secondary_phone) }
-
     specify { expect(organization).to respond_to(:title) }
-
     specify { expect(organization).to respond_to(:transportation) }
 
   end
@@ -66,9 +47,13 @@ RSpec.describe Organization, type: :model do
 
   describe "validations" do
 
-    it "validates presence of email" do
-      expect(organization).to validate_presence_of(:email)
-    end
+    specify { expect(organization).to validate_presence_of(:email) }
+    specify { expect(organization).to validate_presence_of(:name) }
+    specify { expect(organization).to validate_presence_of(:phone) }
+    specify { expect(organization).to validate_presence_of(:status) }
+    specify { expect(organization).to validate_presence_of(:primary_name) }
+    specify { expect(organization).to validate_presence_of(:secondary_name) }
+    specify { expect(organization).to validate_presence_of(:secondary_phone) }
 
     it "validates length of email" do
       expect(organization).to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create)
