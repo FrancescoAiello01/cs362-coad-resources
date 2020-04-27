@@ -2,43 +2,49 @@ require 'rails_helper'
 
 RSpec.describe Organization, type: :model do
 
-  let(:organization) { Organization.new }
+  let(:organization) { Organization.new(name: 'FAKE') }
 
   describe "attributes" do
 
-    it "should have agreement_one" do
-      expect(organization).to respond_to(:agreement_one)
-    end
+    specify { expect(organization).to respond_to(:agreement_one) }
 
-    it "should have agreement_two" do
-      expect(organization).to respond_to(:agreement_two)
-    end
+    specify { expect(organization).to respond_to(:agreement_two) }
 
-    it "should have agreement_three" do
-      expect(organization).to respond_to(:agreement_three)
-    end
+    specify { expect(organization).to respond_to(:agreement_three) }
 
-    it "should have agreement_four" do
-      expect(organization).to respond_to(:agreement_four)
-    end
+    specify { expect(organization).to respond_to(:agreement_four) }
 
-    it "should have agreement_five" do
-      expect(organization).to respond_to(:agreement_five)
-    end
+    specify { expect(organization).to respond_to(:agreement_five) }
 
-    it "should have agreement_six" do
-      expect(organization).to respond_to(:agreement_six)
-    end
+    specify { expect(organization).to respond_to(:agreement_six) }
 
-    it "should have agreement_seven" do
-      expect(organization).to respond_to(:agreement_seven)
-    end
+    specify { expect(organization).to respond_to(:agreement_seven) }
 
-    it "should have agreement_eight" do
-      expect(organization).to respond_to(:agreement_eight)
-    end
+    specify { expect(organization).to respond_to(:agreement_eight) }
 
-    #TODO: Add missing attributes from schema file
+    specify { expect(organization).to respond_to(:name) }
+
+    specify { expect(organization).to respond_to(:status) }
+
+    specify { expect(organization).to respond_to(:phone) }
+
+    specify { expect(organization).to respond_to(:email) }
+
+    specify { expect(organization).to respond_to(:description) }
+
+    specify { expect(organization).to respond_to(:rejection_reason) }
+
+    specify { expect(organization).to respond_to(:liability_insurance) }
+
+    specify { expect(organization).to respond_to(:primary_name) }
+
+    specify { expect(organization).to respond_to(:secondary_name) }
+
+    specify { expect(organization).to respond_to(:secondary_phone) }
+
+    specify { expect(organization).to respond_to(:title) }
+
+    specify { expect(organization).to respond_to(:transportation) }
 
   end
 
@@ -73,6 +79,52 @@ RSpec.describe Organization, type: :model do
       expect(organization).to_not allow_values('@example.com', 'example.com', 'INVALID', 'fake@example').for(:email)
     end
 
+    it "validates uniqueness of email" do
+      expect(organization).to validate_uniqueness_of(:email).case_insensitive
+    end
+
+    it "validates length of name" do
+      expect(organization).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
+    end
+
+    it "validates uniqueness of name" do
+      expect(organization).to validate_uniqueness_of(:name).case_insensitive
+    end
+
+    it "validates length of description" do
+      expect(organization).to validate_length_of(:description).is_at_most(1020).on(:create)
+    end
+
+  end
+
+  describe "#approve" do
+    it "changes status to approved" do
+      organization.status = nil
+      organization.approve
+      expect(organization.status).to eq("approved")
+    end
+  end
+
+  describe "#reject" do
+    it "changes status to rejected" do
+      organization.status = nil
+      organization.reject
+      expect(organization.status).to eq("rejected")
+    end
+  end
+
+  describe "#set_default_status" do
+    it "changes status to default status" do
+      organization.status = nil
+      organization.set_default_status
+      expect(organization.status).to eq("submitted")
+    end
+  end
+
+  describe "#to_s" do
+    it "has a string representation that is the name" do
+      expect(organization.to_s).to eq('FAKE')
+    end
   end
 
 end
