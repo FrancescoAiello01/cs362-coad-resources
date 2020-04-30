@@ -27,7 +27,11 @@ RSpec.describe ResourceCategory, type: :model do
 
   describe "validations" do
 
-
+        specify { expect(resource_category).to validate_presence_of(:name) }
+        specify { expect(resource_category).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
+        it "test uniqueness of name" do
+            should validate_uniqueness_of(:name).case_insensitive
+        end
 
   end
 
