@@ -35,4 +35,48 @@ RSpec.describe ResourceCategory, type: :model do
 
   end
 
+  # TODO: get this methode under a proper test
+  # describe "#unspecified" do
+  #   it "make unspecified region" do
+  #     unspecified = resource_category.unspecified()
+  #   end
+  # end
+
+  describe "#activate" do
+    it "changes status to active" do
+      resource_category.active = false
+      resource_category.activate
+      expect(resource_category.active).to eq(true)
+    end
+  end
+
+  describe "#deactivate" do
+    it "changes status to deactivated" do
+      resource_category.active = true
+      resource_category.deactivate
+      expect(resource_category.active).to eq(false)
+    end
+  end
+
+  describe "#inactive?" do
+
+    it "is resource_category inactive" do
+      resource_category.active = true
+      expect(resource_category.inactive?).to eq(false)
+    end
+
+    it "is resource_category active" do
+      resource_category.active = false
+      expect(resource_category.inactive?).to eq(true)
+    end
+
+  end
+
+  describe "#to_s" do
+    it "has a string representation that is the name" do
+      resource_category.name = 'FAKE'
+      expect(resource_category.to_s).to eq('FAKE')
+    end
+  end
+
 end
