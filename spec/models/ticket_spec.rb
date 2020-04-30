@@ -37,7 +37,22 @@ RSpec.describe Ticket, type: :model do
 
   describe "validations" do
 
+    specify { expect(ticket).to validate_presence_of(:name) }
+    specify { expect(ticket).to validate_presence_of(:phone) }
+    specify { expect(ticket).to validate_presence_of(:region_id) }
+    specify { expect(ticket).to validate_presence_of(:resource_category_id) }
+    specify { expect(ticket).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
+    specify { expect(ticket).to validate_length_of(:description).is_at_most(1020).on(:create) }
 
+    it "test valid phone numbers" do
+        should allow_values('4512121212').
+        for(:phone)
+    end
+
+    it "test invalid phone numbers" do
+        should_not allow_values('foo').
+        for(:phone)
+    end
 
   end
 
