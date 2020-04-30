@@ -56,4 +56,39 @@ RSpec.describe Ticket, type: :model do
 
   end
 
+  describe "#open" do
+
+      it "is ticket open" do
+          expect(ticket.open?).to eq(true)
+      end
+
+      it "is ticket closed" do
+        ticket.closed = true
+        expect(ticket.open?).to eq(false)
+      end
+
+  end
+
+  describe "#captured" do
+
+      it "is ticket captured" do
+          expect(ticket.captured?).to eq(false)
+      end
+
+      # TODO: Make this work
+      # it "is ticket not captured" do
+      #   expect(ticket.captured?).to eq(true)
+      # end
+
+  end
+
+  describe "#to_s" do
+
+    it "has a string representation that is the ticket id" do
+      ticket.id = 1
+      expect(ticket.to_s).to eq("Ticket 1")
+    end
+
+  end
+
 end
