@@ -1,8 +1,10 @@
 require 'rails_helper'
 
+
 RSpec.describe Ticket, type: :model do
 
-  let(:ticket) { Ticket.new() }
+  let(:ticket) { Ticket.new }
+  let(:organization) { build(:organization) }
 
   describe "attributes" do
 
@@ -71,14 +73,14 @@ RSpec.describe Ticket, type: :model do
 
   describe "#captured" do
 
-      it "is ticket captured" do
+      it "ticket is not captured" do
           expect(ticket.captured?).to eq(false)
       end
 
-      # TODO: Make this work
-      # it "is ticket not captured" do
-      #   expect(ticket.captured?).to eq(true)
-      # end
+      it "ticket is captured" do
+        ticket.organization = organization
+        expect(ticket.captured?).to eq(true)
+      end
 
   end
 

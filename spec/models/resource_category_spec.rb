@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
-  let(:resource_category) { ResourceCategory.new() }
+  let(:resource_category) { build(:resource_category) }
 
   describe "attributes" do
 
@@ -16,7 +16,7 @@ RSpec.describe ResourceCategory, type: :model do
   describe "relationships" do
 
     it "has many resource_category" do
-        expect(resource_category).to have_many(:tickets)
+      expect(resource_category).to have_many(:tickets)
     end
 
     it "has and belongs to region" do
@@ -35,12 +35,20 @@ RSpec.describe ResourceCategory, type: :model do
 
   end
 
-  # TODO: get this methode under a proper test
-  # describe "#unspecified" do
-  #   it "make unspecified region" do
-  #     unspecified = resource_category.unspecified()
-  #   end
-  # end
+  describe "::unspecified" do
+    it "creates a new Unspecified resource category when one does not exist" do
+      expect(ResourceCategory.where(name: 'Unspecified')).to be_empty
+      expect{ ResourceCategory.unspecified }.to change { ResourceCategory.count }.by(1)
+    end
+    it "does not create a new Unspecified resource category when one already exists" do
+      create(:resource_category, :unspecified)
+      expect{ ResourceCategory.unspecified }.to_not change { ResourceCategory.count }
+    end
+    it "returns a resource category with the name unspecified" do
+      expect(ResourceCategory.unspecified.name).to eq('Unspecified')
+    end
+
+  end
 
   describe "#activate" do
     it "changes status to active" do
