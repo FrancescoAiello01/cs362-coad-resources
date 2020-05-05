@@ -73,13 +73,13 @@ RSpec.describe Ticket, type: :model do
 
   describe "#captured" do
 
-      it "ticket is not captured" do
-          expect(ticket.captured?).to eq(false)
+      it "ticket is not captured by default" do
+          expect(ticket).to_not be_captured
       end
 
-      it "ticket is captured" do
+      it "ticket is captured if it has an organization" do
         ticket.organization = organization
-        expect(ticket.captured?).to eq(true)
+        expect(ticket).to be_captured
       end
 
   end
