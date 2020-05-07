@@ -1,3 +1,6 @@
+# A ticket belongs to a region, resource category, and an organization (if it has been claimed). Has information
+# on whoever opened the ticket and its status.
+
 class Ticket < ApplicationRecord
 
   belongs_to :region

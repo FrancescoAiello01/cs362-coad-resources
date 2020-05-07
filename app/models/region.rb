@@ -1,3 +1,5 @@
+# A Region has tickets
+
 class Region < ApplicationRecord
 
   has_many :tickets

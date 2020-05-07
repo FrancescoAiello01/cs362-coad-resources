@@ -1,3 +1,5 @@
+# Has user information and belongs to an organization. Also manages roles
+
 class User < ApplicationRecord
 
   enum role: [:admin, :organization]
