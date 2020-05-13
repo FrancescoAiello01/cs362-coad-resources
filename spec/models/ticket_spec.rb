@@ -94,13 +94,12 @@ RSpec.describe Ticket, type: :model do
   end
 
   #TODO: work on scopes
-  describe "scopes" do
+  describe ":open" do
 
-    it "includes tickets with closed false and organization_id nil" do
-      # create(:ticket, :open)
-      # # expect(ticket.open?).to eq(true)
-      # open_tickets = Ticket.open
-      # expect(open_tickets).to include(ticket)
+    it "retrieves only non-closed tickets without an organization" do
+      ticket = create(:ticket)
+      open_tickets = Ticket.open
+      expect(open_tickets).to include(ticket)
     end
 
   end

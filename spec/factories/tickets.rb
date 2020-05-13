@@ -2,16 +2,14 @@ FactoryBot.define do
 
   factory :ticket do
 
-    name { 'FAKE' }
+    name
+    region
+    resource_category
     phone { '4512121212' }
-    region_id { "1234" }
-    resource_category_id { "1234" }
-    closed { nil }
-    organization_id { nil }
+    closed { false }
 
     trait :open do
       closed { false }
-      organization_id { nil }
     end
 
   end
