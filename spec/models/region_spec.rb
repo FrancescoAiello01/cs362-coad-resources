@@ -26,6 +26,10 @@ RSpec.describe Region, type: :model do
     it "validates uniqueness of name" do
       expect(region).to validate_uniqueness_of(:name).case_insensitive
     end
+    it "validates factory" do
+      region = build(:region)
+      expect(region).to be_valid
+    end
   end
 
   describe "#to_s" do

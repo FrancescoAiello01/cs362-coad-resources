@@ -33,6 +33,11 @@ RSpec.describe ResourceCategory, type: :model do
             should validate_uniqueness_of(:name).case_insensitive
         end
 
+        it "validates factory" do
+          resource_category = build(:resource_category)
+          expect(resource_category).to be_valid
+        end
+
   end
 
   describe "::unspecified" do
