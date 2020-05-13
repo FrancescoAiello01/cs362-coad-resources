@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
-  let(:ticket) { Ticket.new }
+  let(:ticket) { build(:ticket) }
   let(:organization) { build(:organization) }
 
   describe "attributes" do
@@ -89,6 +89,18 @@ RSpec.describe Ticket, type: :model do
     it "has a string representation that is the ticket id" do
       ticket.id = 1
       expect(ticket.to_s).to eq("Ticket 1")
+    end
+
+  end
+
+  #TODO: work on scopes
+  describe "scopes" do
+
+    it "includes tickets with closed false and organization_id nil" do
+      # create(:ticket, :open)
+      # # expect(ticket.open?).to eq(true)
+      # open_tickets = Ticket.open
+      # expect(open_tickets).to include(ticket)
     end
 
   end
