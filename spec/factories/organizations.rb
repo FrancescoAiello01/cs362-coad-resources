@@ -2,9 +2,9 @@ FactoryBot.define do
 
   factory :organization do
 
-    name { 'FAKE' }
+    name
     phone { '4512121212' }
-    email { 'email@email.com' }
+    email
     status { :approved }
     primary_name { 'fake_name' }
     secondary_name { 'fake_name' }

@@ -5,6 +5,8 @@ RSpec.describe Ticket, type: :model do
 
   let(:ticket) { build(:ticket) }
   let(:organization) { build(:organization) }
+  let(:region) { build(:region) }
+  let(:resource_category) { build(:resource_category) }
 
   describe "attributes" do
 
@@ -94,14 +96,171 @@ RSpec.describe Ticket, type: :model do
   end
 
   #TODO: work on scopes
-  describe ":open" do
+  describe "::open" do
 
     it "retrieves only non-closed tickets without an organization" do
-      ticket = create(:ticket)
+      ticket = create(:ticket, :open)
       open_tickets = Ticket.open
       expect(open_tickets).to include(ticket)
     end
 
+    it "does not retrieve closed tickets" do
+      ticket = create(:ticket, :closed)
+      open_tickets = Ticket.open
+      expect(open_tickets).not_to include(ticket)
+    end
+
   end
+
+  describe "::closed" do
+
+    it "retrieves only closed tickets with an organization" do
+      ticket = create(:ticket, :closed)
+      closed_tickets = Ticket.closed
+      expect(closed_tickets).to include(ticket)
+    end
+
+    it "does not retrieve open tickets" do
+      ticket = create(:ticket, :open)
+      closed_tickets = Ticket.closed
+      expect(closed_tickets).not_to include(ticket)
+    end
+
+  end
+
+  describe "::all_organization" do
+
+    it "retrieves only open tickets with an organization" do
+      ticket = create(:ticket, :open, :add_organization)
+      organization_tickets = Ticket.all_organization
+      expect(organization_tickets).to include(ticket)
+    end
+
+    it "retrieves only open tickets without an organization" do
+      ticket = create(:ticket, :open)
+      organization_tickets = Ticket.all_organization
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+    it "does not retrieve closed tickets with no organization" do
+      ticket = create(:ticket, :closed)
+      organization_tickets = Ticket.all_organization
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+    it "does not retrieve closed tickets with organization" do
+      ticket = create(:ticket, :closed, :add_organization)
+      organization_tickets = Ticket.all_organization
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+  end
+
+  describe "::organization" do
+
+    it "retrieves open tickets for an organization" do
+      ticket = create(:ticket, :open, :add_organization)
+      org_id = ticket.organization.id
+      organization_tickets = Ticket.organization(org_id)
+      expect(organization_tickets).to include(ticket)
+    end
+
+    it "does not retrieve closed tickets for an organization" do
+      ticket = create(:ticket, :closed, :add_organization)
+      org_id = ticket.organization.id
+      organization_tickets = Ticket.organization(org_id)
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+    it "does not retrieve open tickets for a different organization" do
+      ticket = create(:ticket, :open, :add_organization)
+      organization = create(:organization)
+      org_id = organization.id
+      organization_tickets = Ticket.organization(org_id)
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+    it "does not retrieve closed tickets for a different organization" do
+      ticket = create(:ticket, :closed, :add_organization)
+      organization = create(:organization)
+      org_id = organization.id
+      organization_tickets = Ticket.organization(org_id)
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+  end
+
+  describe "::closed_organization" do
+
+    it "retrieves closed tickets for an organization" do
+      ticket = create(:ticket, :closed, :add_organization)
+      org_id = ticket.organization.id
+      organization_tickets = Ticket.closed_organization(org_id)
+      expect(organization_tickets).to include(ticket)
+    end
+
+    it "does not retrieve open tickets for an organization" do
+      ticket = create(:ticket, :open, :add_organization)
+      org_id = ticket.organization.id
+      organization_tickets = Ticket.closed_organization(org_id)
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+    it "does not retrieve open tickets for a different organization" do
+      ticket = create(:ticket, :open, :add_organization)
+      organization = create(:organization)
+      org_id = organization.id
+      organization_tickets = Ticket.closed_organization(org_id)
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+    it "does not retrieve closed tickets for a different organization" do
+      ticket = create(:ticket, :closed, :add_organization)
+      organization = create(:organization)
+      org_id = organization.id
+      organization_tickets = Ticket.closed_organization(org_id)
+      expect(organization_tickets).not_to include(ticket)
+    end
+
+  end
+
+  describe "::region" do
+
+    it "retrieves tickets with a given region" do
+      ticket = create(:ticket)
+      region_id = ticket.region.id
+      region_tickets = Ticket.region(region_id)
+      expect(region_tickets).to include(ticket)
+    end
+
+    it "does not retrieve tickets with a different region" do
+      ticket = create(:ticket)
+      region = create(:region)
+      region_id = region.id
+      region_tickets = Ticket.region(region_id)
+      expect(region_tickets).not_to include(ticket)
+    end
+
+  end
+
+  describe "::resource_category" do
+
+    it "retrieves tickets with a given resource_category" do
+      ticket = create(:ticket)
+      resource_category_id = ticket.resource_category.id
+      rc_tickets = Ticket.resource_category(resource_category_id)
+      expect(rc_tickets).to include(ticket)
+    end
+
+    it "does not retrieve tickets with a different region" do
+      ticket = create(:ticket)
+      resource_category = create(:resource_category)
+      resource_category_id = resource_category.id
+      rc_tickets = Ticket.resource_category(resource_category_id)
+      expect(rc_tickets).not_to include(ticket)
+    end
+
+  end
+
 
 end

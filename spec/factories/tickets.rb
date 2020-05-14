@@ -6,10 +6,18 @@ FactoryBot.define do
     region
     resource_category
     phone { '4512121212' }
-    closed { false }
 
     trait :open do
       closed { false }
+    end
+
+    trait :closed do
+      closed { true }
+      organization
+    end
+
+    trait :add_organization do
+      organization
     end
 
   end

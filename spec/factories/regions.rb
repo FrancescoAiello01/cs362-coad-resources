@@ -2,7 +2,7 @@ FactoryBot.define do
 
   factory :region do
 
-    name { 'FAKE' }
+    name
 
     trait :unspecified do
       name { 'Unspecified' }

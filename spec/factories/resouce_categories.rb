@@ -2,7 +2,7 @@ FactoryBot.define do
 
   factory :resource_category do
 
-    name { 'FAKE' }
+    name
 
     trait :unspecified do
       name { 'Unspecified' }
