@@ -92,4 +92,36 @@ RSpec.describe ResourceCategory, type: :model do
     end
   end
 
+  describe "::active" do
+
+    it "should retrieve all resource_categories that are active" do
+      resource_category = create(:resource_category, :active)
+      resource_categories = ResourceCategory.active
+      expect(resource_categories).to include(resource_category)
+    end
+
+    it "should not retrieve resource_categories that are inactive" do
+      resource_category = create(:resource_category, :inactive)
+      resource_categories = ResourceCategory.active
+      expect(resource_categories).not_to include(resource_category)
+    end
+
+  end
+
+  describe "::inactive" do
+
+    it "should retrieve all resource_categories that are inactive" do
+      resource_category = create(:resource_category, :inactive)
+      resource_categories = ResourceCategory.inactive
+      expect(resource_categories).to include(resource_category)
+    end
+
+    it "should not retrieve resource_categories that are active" do
+      resource_category = create(:resource_category, :active)
+      resource_categories = ResourceCategory.inactive
+      expect(resource_categories).not_to include(resource_category)
+    end
+
+  end
+
 end
