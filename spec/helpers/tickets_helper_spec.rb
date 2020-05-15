@@ -12,4 +12,22 @@ require 'rails_helper'
 # end
 RSpec.describe TicketsHelper, type: :helper do
 
+  let(:expected_number) { "+15416966969" }
+
+  it "formats a phone number with area code in parenthesis" do
+    formatted_number = format_phone_number("(541) 696-6969")
+    expect(formatted_number).to eq(expected_number)
+  end
+
+  it "formats a phone number with dashes to separate parts of number" do
+    formatted_number = format_phone_number("(541-696-6969")
+    expect(formatted_number).to eq(expected_number)
+  end
+
+  it "adds a +1 to any given number" do
+    formatted_number = format_phone_number("6966969")
+    expected_number = "+16966969"
+    expect(formatted_number).to eq(expected_number)
+  end
+
 end
