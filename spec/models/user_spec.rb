@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
             should validate_uniqueness_of(:email).case_insensitive
         end
 
-        it "test uniqueness of email" do
+        it "test presence of password" do
             should validate_presence_of(:password).on(:create)
         end
 

@@ -34,7 +34,8 @@ RSpec.describe Region, type: :model do
 
   describe "#to_s" do
     it "has a string representation that is the name" do
-      expect(region.to_s).to eq('FAKE')
+      region = build(:region)
+      expect(region.to_s).to eq(region.name)
     end
   end
 
