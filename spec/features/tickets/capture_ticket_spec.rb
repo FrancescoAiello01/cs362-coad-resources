@@ -24,7 +24,6 @@ RSpec.describe 'Capturing a ticket', type: :feature do
       ticket = create(:ticket, :open, :add_organization)
       visit dashboard_path
       click_on ticket.name
-      save_and_open_page
       expect(page).to have_text(ticket.organization.name)
     end
 
