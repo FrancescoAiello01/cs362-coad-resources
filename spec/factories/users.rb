@@ -15,6 +15,10 @@ FactoryBot.define do
       organization
     end
 
+    trait :role_organization do
+      role { :organization }
+    end
+
   end
 
 end

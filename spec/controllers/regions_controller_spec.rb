@@ -32,7 +32,7 @@ RSpec.describe RegionsController, type: :controller do
   end
 
   context 'As an organization user' do
-    let(:user) { build(:user, :set_organization) }
+    let(:user) { build(:user, :role_organization) }
     let(:region) { create(:region) }
     
     before do
@@ -95,14 +95,13 @@ RSpec.describe RegionsController, type: :controller do
     describe 'GET #edit' do
       specify { expect(get(:show, params: { id: region.id })).to be_successful }
     end
-    # TODO: Get these working
     describe 'GET #update' do
-      skip
-        # specify { expect(get(:update, params: { region: region, id: region.id })).to be_successful }
+        specify { expect(get(:update, params: { region: {
+            name: 'FAKE',
+        }, id: region.id })).to redirect_to(region_path(region))}
     end
     describe 'GET #destroy' do
-      skip
-        # specify { expect(get(:destroy, params: { id: region.id })).to be_successful }
+        specify { expect(get(:destroy, params: { id: region.id })).to redirect_to(regions_path) }
     end
   end
 
