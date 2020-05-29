@@ -95,7 +95,6 @@ RSpec.describe Ticket, type: :model do
 
   end
 
-  #TODO: work on scopes
   describe "::open" do
 
     it "retrieves only non-closed tickets without an organization" do
