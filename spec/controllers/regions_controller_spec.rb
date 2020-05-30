@@ -18,10 +18,10 @@ RSpec.describe RegionsController, type: :controller do
       specify { expect(get(:new)).to redirect_to(new_user_session_path) }
     end
     describe 'GET #create' do
-      specify { expect(get(:show, params: { id: region.id })).to redirect_to(new_user_session_path) }
+      specify { expect(get(:create, params: { id: region.id })).to redirect_to(new_user_session_path) }
     end
     describe 'GET #edit' do
-      specify { expect(get(:show, params: { id: region.id })).to redirect_to(new_user_session_path) }
+      specify { expect(get(:edit, params: { id: region.id })).to redirect_to(new_user_session_path) }
     end
     describe 'GET #update' do
       specify { expect(get(:update, params: { id: region.id })).to redirect_to(new_user_session_path) }
@@ -54,10 +54,10 @@ RSpec.describe RegionsController, type: :controller do
       specify { expect(get(:new)).to redirect_to(dashboard_path) }
     end
     describe 'GET #create' do
-      specify { expect(get(:show, params: { id: region.id })).to redirect_to(dashboard_path) }
+      specify { expect(get(:create, params: { id: region.id })).to redirect_to(dashboard_path) }
     end
     describe 'GET #edit' do
-      specify { expect(get(:show, params: { id: region.id })).to redirect_to(dashboard_path) }
+      specify { expect(get(:edit, params: { id: region.id })).to redirect_to(dashboard_path) }
     end
     describe 'GET #update' do
       specify { expect(get(:update, params: { id: region.id })).to redirect_to(dashboard_path) }
@@ -67,7 +67,7 @@ RSpec.describe RegionsController, type: :controller do
     end
   end
 
-  context 'As an organization user' do
+  context 'As an admin user' do
     let(:user) { build(:user, :set_admin) }
     let(:region) { create(:region) }
 
@@ -90,10 +90,10 @@ RSpec.describe RegionsController, type: :controller do
       specify { expect(get(:new)).to be_successful }
     end
     describe 'GET #create' do
-      specify { expect(get(:show, params: { id: region.id })).to be_successful }
+      specify { expect(get(:create, params: { region: { name: 'KAHJLF' } })).to redirect_to(regions_path) }
     end
     describe 'GET #edit' do
-      specify { expect(get(:show, params: { id: region.id })).to be_successful }
+      specify { expect(get(:edit, params: { id: region.id })).to be_successful }
     end
     describe 'GET #update' do
         specify { expect(get(:update, params: { region: {

@@ -63,10 +63,11 @@ RSpec.describe OrganizationsController, type: :controller do
       end
 
       it 'succeeds' do
-        skip
-        expect(get(:update, params: { organization: user.organization })).to redirect_to(organization_path)
+        expect(get(:update, params: { id: user.organization.id })).to redirect_to(dashboard_path)
       end
     end
   end
+
+  # TODO: Finish this coverage
 
 end
