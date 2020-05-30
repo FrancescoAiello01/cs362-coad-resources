@@ -70,7 +70,7 @@ RSpec.describe ResourceCategoriesController, type: :controller do
     let(:user) { build(:user, :set_admin) }
     let(:resource_category) { create(:resource_category) }
     let(:active_resource_category) { create(:resource_category, :active) }
-    let(:inactive_resource_category) { create(:resource_category, :active) }
+    let(:inactive_resource_category) { create(:resource_category, :inactive) }
 
     before do
       resource_category
