@@ -25,6 +25,7 @@ RSpec.describe 'Logging in', type: :feature do
       click_on 'Sign in'
       expect(page).to have_text('Invalid Email or password.')
     end
+
   end
 
 end
